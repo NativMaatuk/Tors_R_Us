@@ -1,0 +1,128 @@
+<app-navbar></app-navbar>
+<mat-tab-group mat-align-tabs="center" *ngIf="appointments">
+      <mat-tab label="Your appointment">
+              <!--user's appointment table-->
+                    <table class="table table-hover table-dark table-main center-item-in-tabs">
+                      <thead>
+                          <tr>
+                              <th class="bg-secondary rounded" colspan="4"><a class="text-light" routerLink="/appointments">Future Appointments</a></th>
+                          </tr>
+                        <tr>
+                          <th scope="col">Business</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Services</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="trd" *ngFor="let tmp of future" [routerLink]="['/business',tmp.businessName]">
+                            <td><a class="text-light businessName" >{{tmp.businessName}}</a></td>
+                            <td>{{tmp.formatDate}} {{tmp.formatTime}}</td>
+                            <td>
+                              <ng-container *ngIf="tmp.services">
+                                <ng-container *ngFor="let item of tmp.services">
+                                  {{item.name}}&nbsp;&nbsp;&nbsp;
+                                </ng-container>
+                              </ng-container>
+                            </td>
+                          </tr>
+                          <ng-container *ngIf="!future.length">
+                              <tr><td></td><td></td><td></td></tr>
+                              <tr><td></td><td></td><td></td></tr>
+                              <tr><td></td><td></td><td></td></tr>
+                          </ng-container>
+                        </tbody>
+                    </table>
+      </mat-tab>
+      <mat-tab label="Your Businesses">
+            <!--Businesses table-->
+              <table class="table table-hover table-dark table-main center-item-in-tabs">
+                <thead>
+                    <tr>
+                      <th class="bg-secondary rounded" colspan="4"><a class="text-light" routerLink="/profile">Your Businesses</a></th>
+                    </tr>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Adress</th>
+                    <th scope="col">Phone number</th>
+                    <th scope="col" colspan="2">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr class="trd" *ngFor="let tmp of owned" [routerLink]="['/business',tmp.name]">
+                      <td>{{tmp.name}}</td>
+                      <td>{{tmp.address}}</td>
+                      <td>{{tmp.phone}}</td>
+                      <td>            
+                        <button [routerLink]="['/business',tmp.name]" class="btn btn-sm btn-info" style="margin: 5px;">Page</button>
+                        <button [routerLink]="['/business',tmp.name,'manage']" class="btn btn-sm btn-light">Manager</button>
+                      </td>
+                    </tr>
+                    <ng-container *ngIf="owned && !owned.length">
+                      <tr><td></td><td></td><td></td><td></td></tr>
+                      <tr><td></td><td></td><td></td><td></td></tr>
+                      <tr><td></td><td></td><td></td><td></td></tr>
+                  </ng-container>
+                  </tbody>
+              </table>
+      </mat-tab>
+      <mat-tab label="History">
+        <!--history table-->
+              <table class="table table-hover table-dark table-main center-item-in-tabs">
+                <thead>
+                    <tr>
+                      <th class="bg-secondary rounded" colspan="4"><a class="text-light" routerLink="/appointments">History</a></th>
+                    </tr>
+                  <tr>
+                    <th>Name</th>
+                    <th scope="col">Date</th>
+                    <th>Services</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="history!==undefined">
+                  <tr class="trd" *ngFor="let tmp of history" [routerLink]="['/business',tmp.businessName]">
+                    <td><a class="text-light">{{tmp.businessName}}</a></td>
+                    <td>{{tmp.formatDate}} {{tmp.formatTime}}</td>
+                    <td>
+                      <ng-container *ngIf="tmp.services">
+                        <ng-container *ngFor="let item of tmp.services">
+                          {{item.name}}&nbsp;&nbsp;&nbsp;
+                        </ng-container>
+                      </ng-container>
+                    </td>
+                  </tr>
+                  <ng-container *ngIf="!history.length">
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </ng-container>
+                </tbody>
+              </table>
+      </mat-tab>
+      <mat-tab label="Favorites">
+                  <!--Favorites table-->
+              <table class="table table-hover table-dark table-main center-item-in-tabs text-light">
+                <thead>
+                    <tr>
+                    <th class="bg-secondary rounded" colspan="4"><a class="text-light" routerLink="/favorites">Favorites</a></th>
+                    </tr>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone number</th>
+                  </tr>
+                </thead>
+              <tbody>
+                      <tr class="trd" *ngFor="let tmp of getFavorites() | keyvalue" [routerLink]="['/business',tmp.key]">
+                        <td><a class="text-light">{{tmp.key}}</a></td>
+                        <td>{{tmp.value.address}}</td>
+                        <td>{{tmp.value.phone}}</td>
+                      </tr>
+                      <ng-container *ngIf="getFavorites() && !getFavorites().size">
+                        <tr><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td></tr>
+                      </ng-container>
+                    </tbody>
+              </table>
+      </mat-tab>
+</mat-tab-group>

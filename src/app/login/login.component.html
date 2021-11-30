@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- login form -->
+      <form class="box" style="border-radius: 16px;" [formGroup]="login" (ngSubmit)="onSubmit(login)"
+        autocomplete="off">
+        <img src="assets/img/logo.png" height="150" width="150">
+        <div class="form-group">
+          <!-- email field -->
+          <input class="form-control" type="Email" name="email" placeholder="Email" formControlName="email" required
+            email minlength="6">
+          <!-- password field -->
+          <input class="form-control" type="password" name="password" placeholder="Password" formControlName="password"
+            required minlength="5" pattern="^[A-Z][^\s]*$">
+        </div>
+        <!-- submit button -->
+        <input type="submit" value="Login" [disabled]="!login.valid">
+        <!-- register button, will route to register url-->
+        <button type="button" routerLink="/register" class="regBtn" style="border:solid royalblue 2px">Register</button>
+        <!-- invalid password section -->
+        <div>
+          <!-- forgot password button -->
+          <button type="button" class="btn btn-sm btn-outline-secondary text-light rounded" (click)="forgotPassword()">
+            Forgot Password
+          </button>
+          <br>
+          <!-- invalid password warning -->
+          <small class="text-warning"
+            *ngIf="login.controls['password'].dirty && login.controls['password'].touched && !login.controls['password'].valid">
+            A password must start with an uppercase letter, and have least 5 charecters
+          </small>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

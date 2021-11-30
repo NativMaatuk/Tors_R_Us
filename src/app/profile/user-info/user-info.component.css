@@ -1,0 +1,27 @@
+.wi-c{
+    max-width: 4.13in;
+    min-width: 4.13in;
+    border: 2px solid gray;
+}
+.pos{
+    max-width: 2in; 
+    padding-right: 1px; 
+}
+.len-card{
+    max-width: 4.13in;
+}
+
+.radi{
+    border-radius: 16px;
+    padding: 1%;
+}
+.pad{
+    padding: 2%;
+}
+.btn-s{ 
+    width: 2in;
+    margin-left: 0.62in;
+}
+table *{
+    margin:2px;
+}

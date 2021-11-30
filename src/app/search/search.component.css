@@ -1,0 +1,21 @@
+.card{
+    margin-top: 5%;
+    padding: 10px;
+    margin:10%;
+}
+table{
+    min-height: 1in;
+    margin-right: 10px;
+}
+tr{
+    transition: background-color,color;
+    transition-duration: 0.4s;
+}
+tbody tr:hover{
+    cursor: pointer;
+    background-color: dimgray;
+}
+td{
+    padding: 10px;
+    border-top: 3px solid gray;
+}

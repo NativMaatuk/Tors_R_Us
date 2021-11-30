@@ -1,0 +1,14 @@
+<div *ngIf="statistics!==undefined"
+     class="bg-light shadow p-3 mb-5 bg-white rounded">
+  <ngx-charts-pie-chart
+    [results]="statistics"
+    [view]="view"
+    [gradient]="gradient"
+    [legend]="showLegend"
+    [legendPosition]="legendPosition"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+    [legendTitle]="legendTitle"
+    >
+  </ngx-charts-pie-chart>
+</div>

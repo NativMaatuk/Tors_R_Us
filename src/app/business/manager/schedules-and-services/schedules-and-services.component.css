@@ -1,0 +1,47 @@
+li{
+    padding-bottom: 5%;
+  }
+  
+  table, th, td {
+    padding: 1em;
+    width: auto;
+    text-align: center;
+    background: #ddd;
+  }
+
+  td{
+    border-right: 3px solid white;
+    border-top: 3px solid white; 
+  }
+  .td2{
+    border-right: unset;
+  }
+  table{
+      width: 70%;
+      border: unset;
+  }
+  .block {
+    display: block;
+    width: 90%;
+    color: black;
+    border: none;
+    background-color:gray;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+  }
+table{
+        border-collapse: collapse;
+        border-radius: 1em;
+        overflow: hidden;
+}
+input{
+  text-align: center;
+}
+
+.tableInput,.tableInput *{
+  border: none;
+}
+input[type=number]{
+  appearance: textfield;
+}

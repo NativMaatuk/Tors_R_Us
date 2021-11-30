@@ -1,0 +1,126 @@
+<div class="row" style="margin:10px;" *ngIf="business">
+
+  <div class="col bg-secondary rounded">
+    <!-- The calendar -->
+    <h4 class="col bg-light" style="text-align: center; margin-top: 10px; padding: 5px; border-radius: 16px;">
+        <!-- previous month button -->
+        <button class="btn btn-dark text-light btn-sm" (click)="changeCalendar(-1)">
+        << </button>
+        <!-- currently selected month -->
+        &nbsp;{{getH4Title()}}&nbsp;
+        <!-- next month button -->
+        <button class="btn btn-dark text-light btn-sm"
+          (click)="changeCalendar(1)">
+          >>
+      </button>
+    </h4>
+    <!-- the calendar -->
+    <table class="table table-secondary table-striped rounded" *ngIf="appCalendar!=null">
+      <thead class="bg-light">
+        <th *ngFor="let day of days">
+          {{day}}
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of weeks">
+          <td *ngFor="let day of monthCalendar.get(row)" [ngClass]="{'bg-dark text-light': isSelected(day)}"
+            (click)="selectDate(day)">
+            <ng-container *ngIf="day">
+              {{day | date:"dd/MM/YYYY"}}
+              <ng-container *ngIf="appCalendar && appCalendar.has(day | date:'YYYY-MM-dd') && appCalendar.get(day | date:'YYYY-MM-dd').length>0">
+                <br>
+                {{appCalendar.get(day | date:'YYYY-MM-dd').length}}
+                {{appCalendar.get(day | date:'YYYY-MM-dd').length>1? "Appointments":"Appointment"}}
+              </ng-container>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col bg-light" style="padding: 10px; margin: 10px; border: 3px solid gray;">
+    <!-- Selected date and its appointments -->
+    <h4>
+      {{selected | date:"dd/MM/YYYY"}} Appointments
+      <!-- message all button -->
+      <button class="btn btn-primary btn-sm" style="margin: 10px;"
+        *ngIf="hasAppointments() && (selected | date:'YYYY-MM-dd') >= (getToday() | date:'YYYY-MM-dd')"
+        (click)="sendMessageToAll()">
+        Message All
+      </button>
+      <!-- cancel all appointments in selected date button -->
+      <button class="btn btn-secondary btn-sm"
+        *ngIf="hasAppointments() && (selected | date:'YYYY-MM-dd') >= (getToday() | date:'YYYY-MM-dd')"
+        (click)="clearDay()">
+        Clear Day
+      </button>
+    </h4>
+    <ng-container *ngIf="hasAppointments(); then thenTemplate; else elseTemplate"></ng-container>
+    <ng-template #thenTemplate>
+      <table class="table table-borded table-striped">
+        <thead>
+          <th>
+            Client
+          </th>
+          <th>
+            Time
+          </th>
+          <th>
+            Duration
+          </th>
+          <th>
+            Price
+          </th>
+          <th>
+            Services
+          </th>
+          <th>
+            Actions
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of appCalendar.get(selected | date:'YYYY-MM-dd')">
+            <td>
+              {{app.userEmail}}
+            </td>
+            <td>
+              {{app.formatTime=="25:00"? "--:--":app.formatTime}}
+            </td>
+            <td>
+              {{app.totalDuration}}
+            </td>
+            <td>
+              {{app.totalPrice}}
+            </td>
+            <td>
+              <ng-container *ngIf="app.services">
+                <ng-container *ngFor="let service of app.services">
+                  {{service.name}}&nbsp;&nbsp;&nbsp;
+                </ng-container>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="!app.completed && !app.hasPassed(); then deleteBtn; else completedText">
+              </ng-container>
+              <ng-template #deleteBtn>
+                <!-- message client button -->
+                <button class="btn btn-info btn-sm" style="margin-right: 10px;"
+                  (click)="sendMessage(app.id)">Message</button>
+                <!-- cancel appointment button-->
+                <button class="btn btn-warning btn-sm" (click)="deleteAppointment(app.id)">Cancel</button>
+              </ng-template>
+              <!-- appointment has passed, cannot cancel -->
+              <ng-template #completedText>
+                {{app.completed? "Completed":"Passed"}}
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+    <ng-template #elseTemplate> <!-- no appointments in selected date-->
+      No appointment in selected date.
+    </ng-template>
+
+  </div>
+</div>

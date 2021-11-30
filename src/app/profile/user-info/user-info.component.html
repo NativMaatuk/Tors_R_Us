@@ -1,0 +1,76 @@
+<div class="container op" style="padding-top: 15px;" *ngIf="loginCheck()">
+  <div class="row d-flex justify-content-center">
+    <!-- /Breadcrumb -->
+    <div class="gutters-sm">
+      <!-- user's profile -->
+      <div class="col-md-20 mb-3">
+        <div class="card wi-c">
+          <div class="card-body">
+            <div class="text-center">
+              <div class="mt-3">
+                <h4>{{getUser().email}}</h4>  <!-- user's email -->
+                <!-- logout button -->
+                <button (click)="logout()" class="btn btn-warning btn-sm" style="margin-right: 10px;">Logout</button>
+                <!-- de/activation button -->
+                <button type="button" class="btn btn-sm"
+                  [ngClass]="{'btn-danger':getUser().activated==1,'btn-outline-danger':getUser().activated==0}"
+                  (click)="toggleActivatedUser()">{{getUser().activated? "Deactivate":"Activate"}}</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- update info form -->
+      <div class="card bg-light len-card radi wi-c shadow-lg pos-c">
+        <div class="h1 text-center bg-dark text-light radi">Info</div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off" class="from-group text-center">
+          <table style="width: 100%;text-align: center;">
+            <tr>
+              <th>
+                <label class="">Name:</label>
+              </th>
+              <td>
+                <input class="form-control" type="text" formControlName="name" class="form-control pos" required
+                  pattern="^[a-zA-Z\s]*$">
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <label class="">Email:</label>
+              </th>
+              <td>
+                <input class="form-control" type="email" formControlName="email" class="form-control pos" required email
+                  minlength="6">
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <label class="">Password:</label>
+              </th>
+              <td>
+                <input class="form-control" type="password" formControlName="password" class="form-control pos">
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <label class="">Phone:</label>
+              </th>
+              <td>
+                <input class="form-control" type="phone" formControlName="phone" class="form-control pos"
+                  pattern="^0[4|5][0-9]{8}$">
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <!-- form submit button -->
+                <button type="submit" class="btn btn-outline-dark d-inline" [disabled]="!form.valid">Update</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

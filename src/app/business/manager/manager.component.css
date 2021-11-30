@@ -1,0 +1,10 @@
+div {
+  padding: 0;
+  margin: 0;
+}
+
+div.mat-tab-sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+}

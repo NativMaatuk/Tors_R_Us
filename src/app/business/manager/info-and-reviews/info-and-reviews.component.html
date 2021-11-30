@@ -1,0 +1,103 @@
+<div *ngIf="business" class="row" style="max-width: 100%;">
+  <!-- business info with update info form -->
+  <div class="col d-flex justify-content-around">
+    <!-- update info form -->
+    <div style="width: 25em; justify-content: center; margin-top:1%;" class="card-deck">
+      <h2 style="text-align: center; text-decoration: underline;">Business Information</h2>
+      <form [formGroup]="updateForm" (ngSubmit)="updateBusiness()">
+        <table class="table table-light" style="text-align: center;">
+          <tr>
+            <th>Name</th>
+            <td>
+              <input type="text" class="form-control" formControlName="name" required pattern="^[a-zA-Z\s\d]*$"
+                minlength="2" maxlength="15">
+            </td>
+          </tr>
+          <tr>
+            <th>Phone Number</th>
+            <td>
+              <input class="form-control" formControlName="phone" required pattern="^0[4|5][0-9]{8}$">
+            </td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>
+              <input class="form-control" formControlName="address" pattern="^[a-zA-Z\s\d]*$" required>
+            </td>
+          </tr>
+          <tr>
+            <th>City</th>
+            <td>
+              <input class="form-control" formControlName="city" pattern="^[a-zA-Z\s\d]*$" required>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="submit" class="btn btn-info" value="Update" [disabled]="updateForm.invalid" />
+            </td>
+            <td>
+              <!-- submit update info form -->
+              <button type="button" class="btn"
+                [ngClass]="{'btn-danger':business.activated==1,'btn-outline-danger':business.activated==0}"
+                (click)="toggleActivatedBusiness()">{{business.activated? "Deactivate":"Activate"}}</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <!-- Reviews -->
+  <div class="col">
+    <div class="row card mt-2 bg-light text-dark" style="margin: 0 20%;">
+      <div class="bg-dark text-light h5" style="text-align: center">
+        Reviews
+      </div>
+      <div class="row d-flex justify-content-center" *ngIf="reviews!==undefined">
+        <!--ngx charts linear gauge-->
+        <ngx-gauge [type]="gaugeType" [value]="gaugeValue" [label]="gaugeLabel" [max]="gaugeMax" [size]="gaugeSize"
+          [animate]="gaugeAnimate">
+        </ngx-gauge>
+      </div>
+    </div>
+    <!-- Review Messages-->
+    <div class="container bootstrap snippets bootdey" style="margin-top: 0.5in;">
+      <div class="row d-flex justify-content-center">
+        <!-- list -->
+        <div class="col-md-5 text-light rounded" style="background-color: rgb(51, 75, 83);">
+          <div class="border-bottom" style="min-height: 50px; padding: 0.2in;">
+            <strong>Reviews</strong>
+          </div>
+          <ul class="friend-list" style="max-height: 3in; overflow-y: scroll; min-height: 1.5in;">
+            <ng-container *ngFor="let review of reviews">
+              <li class="bounceInDown msgHover bg-light" [ngClass]="{'selected':review==selected}">
+                <a class="clearfix" (click)="select(review)">
+                  <div class="friend-name">
+                    <strong>{{review.userEmail}}</strong> - {{review.liked == 1? "Liked":"Disliked"}}
+                  </div>
+                  <div class="last-message text-muted">{{review.content}}</div>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+        <!-- selected message -->
+        <div class="col-md-6 text-dark rounded bg-light"
+          style="background-color: rgb(51, 75, 83); border: 1px solid gray; padding: 10px;">
+          <ng-container *ngIf="selected; then thenTemplate; else elseTemplate"></ng-container>
+          <ng-template #thenTemplate>
+            <div>
+              <h4 class="d-inline">
+                <u>{{selected.userEmail}}</u> - {{selected.liked == 1? "Liked":"Disliked"}}
+              </h4>
+            </div>
+            <p>{{selected.content}}</p>
+          </ng-template>
+          <ng-template #elseTemplate>
+            <!-- no selected message -->
+            <h5>No Review selected</h5>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

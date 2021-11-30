@@ -1,0 +1,131 @@
+<app-navbar></app-navbar>
+<div class="row">
+    <!-- search by name result -->
+  <div class="card bg-dark text-light col" *ngIf="byName">
+    <div class="h3">By Name</div>
+    <table class="table-dark" style="text-align: center;">
+      <thead>
+        <tr *ngIf="byName.length">
+          <th>
+            Name
+          </th>
+          <th>
+            Address
+          </th>
+          <th>
+            City
+          </th>
+          <th>
+            Phone
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let business of byName" [routerLink]="['/business',business.name]">
+          <td>
+            {{business.name}}
+          </td>
+          <td>
+            {{business.address}}
+          </td>
+          <td>
+            {{business.city}}
+          </td>
+          <td>
+            {{business.phone}}
+          </td>
+        </tr>
+      </tbody>
+      <tr *ngIf="!byName.length">   <!-- empty search result-->
+        There are no matching businesses
+      </tr>
+    </table>
+  </div>
+  <!-- search by services result -->
+  <div class="card bg-dark text-light col" *ngIf="byServices">
+    <div class="h3">By Services</div>
+    <table class="table-dark" style="text-align: center;">
+      <thead>
+        <tr *ngIf="byServices.length">
+          <th>
+            Name
+          </th>
+          <th>
+            Address
+          </th>
+          <th>
+            City
+          </th>
+          <th>
+            Phone
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let business of byServices" [routerLink]="['/business',business.name]">
+          <td>
+            {{business.name}}
+          </td>
+          <td>
+            {{business.address}}
+          </td>
+          <td>
+            {{business.city}}
+          </td>
+          <td>
+            {{business.phone}}
+          </td>
+        </tr>
+      </tbody>
+      <tr *ngIf="!byServices.length">   <!-- empty search result -->
+        There are no matching businesses
+      </tr>
+    </table>
+  </div>
+  <!-- search by services and time, routed via business page -->
+  <div class="card bg-dark text-light col" style="margin: 10% 30%" *ngIf="byTime">
+    <div class="h3">By Time</div>
+    <table class="table-dark" style="text-align: center;">
+      <thead>
+        <tr *ngIf="byTime.length">
+          <th>
+            Name
+          </th>
+          <th>
+            Address
+          </th>
+          <th>
+            City
+          </th>
+          <th>
+            Phone
+          </th>
+          <th>
+            Time
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of byTime" [routerLink]="['/business',row.business.name]">
+          <td>
+            {{row.business.name}}
+          </td>
+          <td>
+            {{row.business.address}}
+          </td>
+          <td>
+            {{row.business.city}}
+          </td>
+          <td>
+            {{row.business.phone}}
+          </td>
+          <td>
+            {{row.time}}
+          </td>
+        </tr>
+      </tbody>
+      <tr *ngIf="!byTime.length">   <!-- empty search result -->
+        There are no matching businesses
+      </tr>
+    </table>
+  </div>

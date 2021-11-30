@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+<div class="row" style="margin:10px;">
+  <div class="col col bg-secondary rounded">
+    <!-- The calendar -->
+    <h4 class="bg-light" style="text-align: center; margin: 10px; padding: 5px; border-radius: 16px;">
+        <!-- previous month -->
+        <button class="btn btn-dark text-light btn-sm" (click)="changeCalendar(-1)">
+        << </button>
+        <!-- selected month -->
+        &nbsp;{{getH4Title()}}&nbsp;
+        <!-- next month -->
+        <button class="btn btn-dark text-light btn-sm"
+          (click)="changeCalendar(1)">
+          >>
+      </button>
+    </h4>
+    <!-- the calendar -->
+    <table class="table table-secondary table-striped rounded" *ngIf="appCalendar!=null">
+      <thead class="bg-light">
+        <th *ngFor="let day of days">
+          {{day}}
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of weeks">
+          <td *ngFor="let day of monthCalendar.get(row)" [ngClass]="{'bg-dark text-light': isSelected(day)}"
+            (click)="selectDate(day)">
+            <ng-container *ngIf="day">
+              {{day | date:"dd/MM/YYYY"}}
+              <ng-container *ngIf="appCalendar && appCalendar.has(day | date:'YYYY-MM-dd') && appCalendar.get(day | date:'YYYY-MM-dd').length>0">
+                <br>
+                {{appCalendar.get(day | date:'YYYY-MM-dd').length}}
+                {{appCalendar.get(day | date:'YYYY-MM-dd').length>1? "Appointments":"Appointment"}}
+              </ng-container>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col bg-light" style="padding: 10px; margin: 10px; border: 3px solid gray">
+    <!-- Selected date and its appointments -->
+    <h4>
+      {{selected | date:"dd/MM/YYYY"}} Appointments
+    </h4>
+    <!-- if there are appointments -->
+    <ng-container *ngIf="hasAppointments(); then thenTemplate; else elseTemplate"></ng-container>
+    <ng-template #thenTemplate>
+      <table class="table table-borded table-striped">
+        <thead>
+          <th>
+            Business
+          </th>
+          <th>
+            Time
+          </th>
+          <th>
+            Duration
+          </th>
+          <th>
+            Price
+          </th>
+          <th>
+            Services
+          </th>
+          <th>
+            Actions
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of appCalendar.get(selected | date:'YYYY-MM-dd')">
+            <td>
+                <!-- route to appointment's business page -->
+              <a [routerLink]="['/business',app.businessName]">{{app.businessName}}</a>
+            </td>
+            <td>
+              {{app.formatTime=="25:00"? "--:--":app.formatTime}}
+            </td>
+            <td>
+              {{app.totalDuration}}
+            </td>
+            <td>
+              {{app.totalPrice}}
+            </td>
+            <td>
+                <!-- the appointment's related services -->
+              <ng-container *ngIf="app.services">
+                <ng-container *ngFor="let service of app.services">
+                  {{service.name}}&nbsp;&nbsp;&nbsp;
+                </ng-container>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="app.hasPassed() || app.completed; else deleteBtn">
+                <!-- appointment has passed or completed, cannot be cancelled -->
+                {{app.irregular? "Passed":"Completed"}}
+              </ng-container>
+              <ng-template #deleteBtn>
+                  <!-- cancel appointment button -->
+                <button class="btn btn-warning btn-sm" (click)="deleteAppointment(app.id)">Cancel</button>
+              </ng-template>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+    <ng-template #elseTemplate>
+      No appointment in selected date.
+    </ng-template>
+
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="container bootstrap snippets bootdey" style="margin-top: 0.5in;">
+  <div class="row d-flex justify-content-center">
+    <!-- outbox -->
+    <div class="col-md-5 text-light rounded" style="background-color: rgb(51, 75, 83);">
+      <div class="border-bottom" style="min-height: 50px; padding: 0.2in;">
+        <strong>Messages</strong>
+      </div>
+      <ul class="friend-list" style="max-height: 3in; overflow-y: scroll; min-height: 1.5in;">
+        <ng-container *ngFor="let message of messages">
+          <li class="bounceInDown msgHover bg-light" [ngClass]="{'selected':message==selected}">
+            <a class="clearfix" (click)="select(message)">
+              <!-- show this message on click -->
+              <div class="friend-name">
+                <strong>{{message.receiverEmail}}</strong>
+              </div>
+              <div class="last-message text-muted">{{message.content}}</div>
+              <small class="time text-muted">{{message.date | date:"dd/MM/YYYY HH:mm"}}</small>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+    <!-- selected message -->
+    <div class="col-md-6 text-dark rounded bg-light"
+      style="background-color: rgb(51, 75, 83); border: 1px solid gray; padding: 10px;">
+      <ng-container *ngIf="selected; then thenTemplate; else elseTemplate"></ng-container>
+      <ng-template #thenTemplate>
+        <div>
+          <h4 class="d-inline">
+            {{selected.receiverEmail}}
+          </h4>
+          <button class="btn btn-sm btn-outline-dark" style="float:inline-end" (click)="deleteMessage(selected.id)">
+            Delete
+          </button>
+        </div>
+        <p>{{selected.content}}</p>
+      </ng-template>
+      <ng-template #elseTemplate>   <!-- no message selected -->
+        <h5>No message selected</h5>
+      </ng-template>
+    </div>
+  </div>
+</div>

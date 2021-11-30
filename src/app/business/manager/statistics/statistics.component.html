@@ -1,0 +1,42 @@
+<div *ngIf="business && servicesArr && statistics" style="text-align: center; padding-bottom: 1in;">
+  <div class="bg-secondary text-light rounded">
+    All the data presented here is according to our data, it is by no means represents the actual business earnings,
+    number of coustomers, etc.
+  </div>
+  <!-- non chart statistics -->
+  <div data-aos="flip-right" class="row"
+    style="text-align:center; justify-content: center; width:100%; margin-top: 10px;">
+    <ng-container *ngFor="let temp of stat">
+      <div class="card bg-dark text-light rounded card-box" *ngIf="temp.parm!==-1">
+        <h4 class="card-header bg-secondary">{{temp.name}}</h4>
+        <div class="title">
+          {{temp.parm}}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <!-- popular times, ordered by days-->
+  <h2>Popular Times</h2>
+  <div data-aos="flip-right" class="row"
+    style="text-align:center; justify-content: center; width:100%; margin-top: 10px;">
+    <ng-container *ngFor="let temp of statistics.popularTime">
+      <div class="card bg-light text-seondary rounded card-box">
+        <h4 class="card-header bg-secondary text-light">{{temp.name}}</h4>
+        <div class="title">
+          {{temp.value}}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <!-- charts -->
+  <div *ngIf="statistics">
+    <!-- months earnings chart-->
+    <div class="row" style="text-align:center; justify-content: center; width:100%;margin-top: 30px;">
+      <app-months-chart [statistics]=statistics.monthEarnings></app-months-chart>
+    </div>
+    <!-- services counters chart -->
+    <div class="row" style="text-align:center; justify-content: center; width:100%;margin-top: 30px;">
+      <app-services-chart [statistics]=statistics.servicesCounter></app-services-chart>
+    </div>
+  </div>
+</div>

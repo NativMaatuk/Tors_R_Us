@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<div *ngIf="getFavorites()!==null">
+<!-- table, desplays the user's favorite businesses-->
+<table class="table table-hover table-dark table-main table-dark text-light rounded" style="width: 60%;margin-top: 15px; margin-left: auto; margin-right: auto;">
+    <thead>
+      <tr>
+        <th scope="col">Business name</th>
+        <th scope="col">Address</th>
+        <th scope="col">City</th>
+        <th scope="col">Phone</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tmp of getFavorites() | keyvalue">
+            <td>{{tmp.key}}</td>
+            <td>{{tmp.value.address}}</td>
+            <td>{{tmp.value.city}}</td>
+            <td>{{tmp.value.phone}}</td>
+            <td><button [routerLink]="['/business',tmp.key]" class="btn btn-info">Business Page</button></td>
+          </tr>
+          <ng-container *ngIf="!getFavorites().length">
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+          </ng-container>
+      </tbody>
+  </table>
+</div>

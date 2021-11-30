@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div>
+  <!-- the manager's tabs (sub components)-->
+  <mat-tab-group mat-align-tabs="center">
+    <!-- business-appointments -->
+    <mat-tab label="Appointments">
+      <app-business-appointments></app-business-appointments>
+    </mat-tab>
+    <!-- info-and-reviews -->
+    <mat-tab label="Info & Reviews">
+      <app-info-and-reviews></app-info-and-reviews>
+    </mat-tab>
+    <!-- outbox -->
+    <mat-tab label="Outbox">
+      <app-outbox></app-outbox>
+    </mat-tab>
+    <!-- schedules-and-services -->
+    <mat-tab label="Schedule & Services">
+      <app-schedules-and-services></app-schedules-and-services>
+    </mat-tab>
+    <!-- statistics -->
+    <mat-tab label="Statistics">
+      <app-statistics></app-statistics>
+    </mat-tab>
+  </mat-tab-group>
+</div>

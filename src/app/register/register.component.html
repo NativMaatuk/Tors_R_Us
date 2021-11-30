@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- register form  -->
+      <form class="box" style="border-radius: 16px;" [formGroup]="register" (ngSubmit)="onSubmit(register)"
+        autocomplete="off">
+        <img src="assets/img/logo.png" height="50" width="50">
+        <h1>Tors-R-Us Register</h1>
+        <div class="form-group">
+          <input class="form-control" type="Email" name="email" placeholder="Email" formControlName="email" required
+            email minlength="6">
+          <input class="form-control" type="text" name="name" placeholder="Name" formControlName="name" required
+            minlength="2" pattern="^[a-zA-Z\s]*$">
+          <input class="form-control" type="password" name="password" placeholder="Password" formControlName="password"
+            required minlength="5" pattern="^[A-Z][^\s]*$">
+          <input class="form-control" type="text" name="phone" placeholder="Phone Number" formControlName="phone"
+            pattern="^0[4|5][0-9]{8}$" required>
+        </div>
+        <!-- submit register button -->
+        <input type="submit" value="Register" [disabled]="!register.valid">
+        <!-- route to login page -->
+        <button type="button" routerLink="/login" class="regBtn" style="border:solid royalblue 2px">Back</button>
+        <br>
+        <!-- invalid password warning -->
+        <small class="text-warning"
+          *ngIf="register.controls['password'].dirty && register.controls['password'].touched && !register.controls['password'].valid">
+          A password must start with an uppercase letter, and have least 5 charecters
+        </small>
+      </form>
+    </div>
+  </div>
+</div>

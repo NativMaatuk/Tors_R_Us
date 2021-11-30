@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark h5" *ngIf="loginCheck()">
+
+  <!-- image route to home page -->
+  <a class="navbar-brand" routerLink="/home"><img src="assets/img/logo.png" height="50" width="50">Tors-R-Us</a>
+
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <!-- home page -->
+      <a class="nav-link" routerLink="/home" routerLinkActive="activeStyle">Home</a>
+    </li>
+    <li class="nav-item">
+      <!-- users-appointments page -->
+      <a class="nav-link" routerLink="/appointments" routerLinkActive="activeStyle">Appointments</a>
+    </li>
+    <li class="nav-item">
+      <!-- inbox page -->
+      <a class="nav-link" routerLink="/messages" routerLinkActive="activeStyle">Messages</a>
+    </li>
+    <li class="nav-item">
+      <!-- favorites page -->
+      <a class="nav-link" routerLink="/favorites" routerLinkActive="activeStyle">Favorites</a>
+    </li>
+    <li class="nav-item">
+      <form [formGroup]="searchForm" class="form-inline" (ngSubmit)="search()">
+        <!-- search form -->
+        <input class="form-control" formControlName="request" type="text" placeholder="Name \ Service" required>
+        <input type="submit" class="btn btn-secondary" value="Search" style="border: 3px solid #3b3b3b"
+          [disabled]="!isSearchValid()" />
+      </form>
+    </li>
+  </ul>
+  <!-- profile page -->
+  <button class="btn btn-primary nav-item float-right" routerLink="/profile">
+    {{getUser().name}}
+  </button>
+</nav>

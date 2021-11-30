@@ -1,0 +1,8 @@
+table{
+    text-align: center;
+}
+td,th,tr{
+    transition:background-color,color;
+    transition-duration: 0.4s;
+}
+th{border-top: unset;}

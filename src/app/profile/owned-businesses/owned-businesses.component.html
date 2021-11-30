@@ -1,0 +1,46 @@
+<!--Businesses table-->
+<div *ngIf="owned!=null">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <table class="rounded table table-hover table-dark table-main" style="text-align: center;">
+      <thead>
+        <tr>
+          <th style="border-top: unset;" colspan="6">My Businesses</th>
+        </tr>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Adress</th>
+          <th scope="col">City</th>
+          <th scope="col">Phone number</th>
+          <th scope="col">Business Links</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tmp of owned">
+          <td>{{tmp.name}}</td>
+          <td>{{tmp.address}}</td>
+          <td>{{tmp.city}}</td>
+          <td>{{tmp.phone}}</td>
+          <td class="row" style="border: unset;">
+            <!-- business page route -->
+            <button type="button" [routerLink]="['/business',tmp.name]" class="btn btn-sm btn-info"
+              style="margin-right: 5px;">Page</button>
+            <!-- business manage page route -->
+            <button type="button" [routerLink]="['/business',tmp.name,'manage']" class="btn btn-sm btn-light">Manager</button>
+          </td>
+        </tr>
+        <!-- new business form -->
+        <tr>
+          <td><input class="form-control" placeholder="Name" formControlName="name" pattern="^[a-zA-Z\s\d]*$" required>
+          </td>
+          <td><input class="form-control" placeholder="Address" formControlName="address" pattern="^[a-zA-Z\s\d]*$"
+              required></td>
+          <td><input class="form-control" placeholder="City" formControlName="city" pattern="^[a-zA-Z\s\d]*$" required>
+          </td>
+          <td><input class="form-control" type="text" placeholder="Phone Number" pattern="^0[4|5][0-9]{8}$"
+              formControlName="phone" required></td>
+          <td><input class="btn btn-primary" type="submit" value="New Business" [disabled]="!form.valid"></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

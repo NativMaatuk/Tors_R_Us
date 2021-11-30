@@ -1,0 +1,39 @@
+<div data-aos="flip-up" *ngIf="statistics"
+class="bg-light shadow p-3 mb-5 bg-white rounded">
+    <table>
+        <tr>
+            <td>
+                <!-- the chart with its settings -->
+                <ngx-charts-bar-vertical
+                        [results]="statistics"
+                        [view]="view"
+                        [scheme]="colorScheme"
+                        [schemeType]="schemeType"
+                        [gradient]="gradient"
+                        [xAxis]="xAxis"
+                        [yAxis]="yAxis"
+                        [legend]="legend"
+                        [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="xAxisLabel"
+                        [yAxisLabel]="yAxisLabel"
+                        [legendTitle]="legendTitle"
+                        [legendPosition]="legendPosition"
+                        [animations]="animations"
+                        [showGridLines]="showGridLines"
+                        [trimXAxisTicks]="trimXAxisTicks"
+                        [trimYAxisTicks]="trimYAxisTicks"
+                        [rotateXAxisTicks]="rotateXAxisTicks"
+                        [maxXAxisTickLength]="maxXAxisTickLength"
+                        [maxYAxisTickLength]="maxYAxisTickLength"
+                        [yAxisTicks]="yAxisTicks"
+                        [showDataLabel]="showDataLabel"
+                        [barPadding]="barPadding"
+                        [tooltipDisabled]="tooltipDisabled"
+                        [roundEdges]="roundEdges"
+                        style="fill: black;"
+                ></ngx-charts-bar-vertical>
+            </td>
+        </tr>
+    </table>
+</div>

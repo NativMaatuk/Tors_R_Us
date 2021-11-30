@@ -1,0 +1,31 @@
+table {
+  text-align: center;
+}
+
+th,
+td {
+  border: 2px solid gray;
+  transition: background-color;
+  transition-duration: 0.4s;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: border-color, color, background-color;
+  transition-duration: 0.4s;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+}
+
+tr:hover a {
+  border-color: gray;
+  color: white;
+  background-color: dimgray;
+}
+
+td {
+  transition: background-color, color;
+  transition-duration: 0.4s;
+}

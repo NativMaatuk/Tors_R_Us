@@ -1,0 +1,136 @@
+<mat-tab-group mat-align-tabs="center">
+    <!-- schedules tab -->
+  <mat-tab label="Schedules">
+    <div *ngIf="business">
+      <div *ngIf="scheduleForms">
+        <div class="justify-content-center d-flex" style="margin-top: 0.2in;">
+          <h3 class="text-light"
+            style="text-align: center;background-color: rgb(58, 156, 135);min-width:10%;max-width: 15%; border-radius: 16px; ">
+            Schedules</h3>
+        </div>
+        
+        <p style="margin: 10px; text-align: center;">The jumps represents the minimum difference of minutes between
+          appointments (20: 12:00 -> 12:20 -> 12:40 ...), to mark that the business is closed for the day change the
+          jumps to 0. </p>
+        <div class="justify-content-center" style="text-align: center;">
+            <!-- schedules sub-tabs -->
+          <mat-tab-group mat-align-tabs="center">
+            <ng-container *ngFor="let item of business.schedules; let i=index">
+              <mat-tab [label]="item.day">
+                  <!-- schedule update form -->
+                <form class="col d-flex justify-content-center" [formGroup]="scheduleForms[i]"
+                  (ngSubmit)="scheduleUpdate(scheduleForms[i],i)">
+                  <table style="margin-top: 0.2in;">
+                    <thead>
+                      <tr>
+                        <th>{{item.day}}</th>
+                        <th>
+                            <!-- reset schedule to openTime = closeTime = 00:00 and jumps = 0 -->
+                          <button type="button" class="btn btn-outline-dark btn-sm"
+                            (click)="resetSchedule(i)">Reset</button>
+                        </th>
+                        <th>
+                            <!-- submit update button -->
+                          <input type="submit" class="btn btn-info btn-sm" value="Update"
+                            [disabled]="!scheduleForms[i].valid" />
+                        </th>
+                      </tr>
+                      <tr>
+                        <td>Openning</td>
+                        <td>Closing</td>
+                        <td class="td2">Jumps</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type="time" formControlName="openTime" required></td>
+                        <td><input type="time" formControlName="closeTime" required></td>
+                        <td class="td2"><input type="number" style="appearance: textfield; width: 60px;"
+                            formControlName="jumps" required></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </mat-tab>
+            </ng-container>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <!-- services tab -->
+  <mat-tab label="Services">
+    <!--services update forms -->
+    <div *ngIf="serviceForms">
+      <div class="d-flex justify-content-center" style="margin-top: 0.2in;">
+        <h3 class="text-light"
+          style="text-align: center;background-color: rgb(58, 156, 135);min-width:10%;max-width: 15%; border-radius: 16px; ">
+          Services</h3>
+      </div>
+      <p *ngIf="!business.services.length" class="pText bg-light" style="text-align: center;">A business needs to have
+        atleast one service </p>
+      <div class="d-flex justify-content-center">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Price
+              </th>
+              <th>
+                Duration
+              </th>
+              <th>
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+              <!-- each service update form -->
+            <tr *ngFor="let tmp of business.services; let ind = index">
+              <td>
+                {{tmp.name}}
+              </td>
+              <td>
+                <form [formGroup]="getServiceForm(tmp.id)"><input type="number" formControlName="price"
+                    style="width: 60px;" min="1" required></form>
+              </td>
+              <td>
+                <form class="d-inline" [formGroup]="getServiceForm(tmp.id)"><input type="number"
+                    formControlName="duration" style="width:50px" min="1" required></form> minutes
+              </td>
+              <td class="td2" style="width:30%">
+                <!-- submit update button -->
+                <button type="button" class="btn btn-sm btn-info" (click)="updateService(tmp.id,tmp.activated)"
+                  [disabled]="!serviceForms[ind].valid" style="margin-right: 10px;">Update</button>
+                <!-- de/activate service button -->
+                <button type="button" class="btn btn-sm"
+                  [ngClass]="{'btn-danger':tmp.activated==1,'btn-outline-danger':tmp.activated==0}"
+                  (click)="toggleActivatedService(tmp)">{{tmp.activated? "Deactivate":"Activate"}}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- new service form -->
+      <form [formGroup]="newService" (ngSubmit)="addService()">
+        <div class="d-flex justify-content-center">
+          <table class="tableInput" style="margin-top: 10px;">
+            <tr>
+              <td><input type="text" class="form-control" formControlName="name" placeholder="Name" required></td>
+              <td><input type="number" class="form-control" formControlName="price" placeholder="Price" required></td>
+              <td><input type="number" class="form-control" formControlName="duration" placeholder="Duration" required>
+              </td>
+              <!-- submit new service button -->
+              <td class="td2"><input type="submit" class="btn btn-primary" value="Add New Service"
+                  [disabled]="!newService.valid" /></td>
+            </tr>
+          </table>
+        </div>
+      </form>
+
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,52 @@
+.h1-center{
+    text-align: center;
+    padding: 1%;
+}
+.table-main{
+    width: 40%;
+    margin-left: 2%;
+    border-radius: 2%;
+}
+th{
+    border-top: unset;
+}
+.rand{
+    border-radius: 16px;
+}
+table{
+    text-align: center;
+}
+.businessName{
+    padding: 10px;
+    transition: border;
+    transition-duration: 0.4s;
+
+}
+tr:hover{
+    cursor: pointer;
+}
+.tr3:hover .businessName{
+    border: 1px solid gray;
+} 
+
+table .trd{
+    transition:0.4s;
+}
+table .trd:hover {
+    box-shadow:6px 6px 6px 6px lightblue;  
+   
+}
+h1:hover{
+    text-shadow: 2px 2px black;
+    color: white;
+    transform: scale(1.1);
+  }
+h1{
+    transition: 0.6s;
+    color: black;
+}
+.center-item-in-tabs{
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+}

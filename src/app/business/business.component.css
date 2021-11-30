@@ -1,0 +1,55 @@
+.myTable{
+    overflow-y: auto;
+    height: 5.25in;
+    border:2px groove black;
+    border-radius: 16px;
+}
+.myTable2{
+    border:none;
+    border-radius: 16px;
+}
+
+th.sticky {
+    position: sticky;
+    top: 0;
+}
+td.app{
+    transition: background-color , color;
+    border-radius: 6px;
+    transition-duration: 0.4s;
+}
+td.app:hover{
+    background-color: green;
+    color: white;
+}
+table *{
+    text-align: center;
+}
+Button.managerBtn{
+    margin-left: 2%;
+}
+.card-group .card{
+    min-width: 5rem;
+    max-width: 6rem;
+    margin-right:10px;
+    border-radius: 6px;
+    font-size: small;
+    white-space: nowrap
+}
+
+th,td{
+    border: none;
+}
+td{
+    border-top: 3px solid gray;
+    height:0.5in;
+}
+
+agm-map{
+    height: 200px;
+}
+
+td{
+    transition: background-color,color;
+    transition-duration: 0.4s;
+}

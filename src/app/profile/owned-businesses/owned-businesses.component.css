@@ -1,0 +1,13 @@
+.pos-t{
+    justify-content: left;
+}
+input{
+    text-align: center;
+}
+input[type=number]{
+    appearance: textfield;
+}
+td,th,tr{
+    transition:background-color,color;
+    transition-duration: 0.4s;
+}
