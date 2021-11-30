@@ -1,2 +1,4 @@
 # Tors_R_Us
- Final project of practical software engineer
+
+the express js server side of the project
+the server have auto loggers and send email functions
